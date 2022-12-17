@@ -1,7 +1,7 @@
 import './card.scss'
 function Card(props) {
   return (
-    <div>{props.children}</div>
+    <div className='card'>{props.children}</div>
   )
 }
 
