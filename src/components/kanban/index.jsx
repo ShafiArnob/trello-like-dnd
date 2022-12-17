@@ -20,21 +20,29 @@ function Kanban() {
           data.map(section =>(
             <Droppable key={section.id} droppableId={section.id}>
               {(provided)=>(
-                <div {...provided.droppableProps}  className='kanban__section' ref={provided.innerRef}>
+                <div {...provided.droppableProps}  className="kanban__section" ref={provided.innerRef}>
+
                   {/* Kanban Title */}
-                  <div className='kanban__section__title'>
+                  <div className="kanban__section__title">
                     {section.title}
                   </div>
 
                   {/* Kanban Tasks */}
-                  <div className='kanban__section__content'>
+                  <div className="kanban__section__content">
                     {
                       section.tasks.map((task,index)=>(
-                        <Card key={index}>
-                          {task.title}
-                        </Card>
+                        <Draggable key={task.id} draggableId={task.id} index={index}>
+                          {(provided, snapshot)=>(
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={{...provided.draggableProps.style, opacity: snapshot.isDragging?'0.5':'1'}}>
+                              <Card>
+                                {task.title}
+                              </Card>
+                            </div>
+                          )}
+                        </Draggable>
                       ))
                     }
+                    {provided.placeholder}
                   </div>
 
                 </div>
